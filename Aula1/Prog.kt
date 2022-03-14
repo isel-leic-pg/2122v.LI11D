@@ -1,6 +1,6 @@
 
 fun main() {
   println("Hello PG")
-  val txt = readln()
+  val txt: String = readln()
   println(txt)
 }
