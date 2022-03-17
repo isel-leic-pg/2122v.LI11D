@@ -1,0 +1,13 @@
+ Volume in drive D is DATA
+ Volume Serial Number is BC55-6F91
+
+ Directory of D:\Aulas\PG\22-22\Turma11D\Code\Aula3
+
+03/17/2022  02:45 PM    <DIR>          .
+03/17/2022  02:45 PM    <DIR>          ..
+03/17/2022  02:45 PM                 0 a.txt
+03/17/2022  02:41 PM    <DIR>          META-INF
+03/17/2022  02:43 PM               117 Symbol.kt
+03/17/2022  02:44 PM             1,237 SymbolKt.class
+               3 File(s)          1,354 bytes
+               3 Dir(s)  875,286,704,128 bytes free
