@@ -1,11 +1,16 @@
 import pt.isel.canvas.*
 
 const val RADIUS = 50
-const val DELTA = 10
+const val DELTA = 4
 
-fun Canvas.drawBall(c: Point) {
+fun Canvas.drawBall(c: Point, color: Color = Color.YELLOW) {
     erase()
-    drawCircle(c.x, c.y, RADIUS, YELLOW)
+    drawCircle(c.x, c.y, RADIUS, when(color) {
+        Color.YELLOW -> YELLOW
+        Color.GREEN -> GREEN
+        Color.WHITE -> WHITE
+    })
+    //drawImage("junk|100,100,10,10",c.x-RADIUS,c.y-RADIUS,2*RADIUS,2*RADIUS)
 }
 
 data class Point(val x: Int, val y:Int)
@@ -21,14 +26,16 @@ fun moveBall(c: Point, keyCode: Int): Point {
 }
 
 fun main() {
-    var center = Point(150,100)
     onStart {
-        val area = Canvas(300,200, BLACK)
+        val area = Canvas(width = 300, height = 200, BLACK)
+        var center = Point(area.width/2, area.height/2)
         area.drawBall(center)
         area.onKeyPressed { key: KeyEvent ->
             center = moveBall(center, key.code)
             area.drawBall(center)
         }
     }
-    onFinish { }
+    onFinish {
+
+    }
 }
