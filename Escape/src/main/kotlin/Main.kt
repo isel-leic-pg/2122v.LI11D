@@ -7,11 +7,11 @@ const val GRID_HEIGHT = 9
 fun main() {
     onStart {
         val cv = Canvas(CELL_SIZE*GRID_WIDTH, CELL_SIZE*GRID_HEIGHT, BLACK)
-        var hero = Hero( Cell(GRID_HEIGHT/2, GRID_WIDTH/2), Direction.DOWN)
-        cv.drawArena(hero)
-        cv.onKeyPressed { key ->
-            hero = hero.move(key.code)
-            cv.drawArena(hero)
+        var game = createGame()
+        cv.drawArena(game)
+        cv.onKeyPressed { key: KeyEvent ->
+            game = game.moveHero(key.code)
+            cv.drawArena(game)
         }
     }
     onFinish {  }
