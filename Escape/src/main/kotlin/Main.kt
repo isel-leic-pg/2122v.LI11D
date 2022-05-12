@@ -1,8 +1,8 @@
 import pt.isel.canvas.*
 
 const val CELL_SIZE = 64
-const val GRID_WIDTH = 15
-const val GRID_HEIGHT = 9
+const val GRID_WIDTH = 11
+const val GRID_HEIGHT = 7
 
 fun main() {
     onStart {
@@ -11,6 +11,10 @@ fun main() {
         cv.drawArena(game)
         cv.onKeyPressed { key: KeyEvent ->
             game = game.moveHero(key.code)
+            cv.drawArena(game)
+        }
+        cv.onTimeProgress(100) {
+            game  = game.stepAnim()
             cv.drawArena(game)
         }
     }
