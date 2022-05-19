@@ -13,7 +13,7 @@ fun main() {
             game = game.moveHero(key.code)
             cv.drawArena(game)
         }
-        cv.onTimeProgress(100) {
+        cv.onTimeProgress(50) {
             game  = game.stepAnim()
             cv.drawArena(game)
         }

@@ -11,6 +11,21 @@ import pt.isel.canvas.UP_CODE
 data class Cell(val line: Int, val col: Int)
 
 /**
+ * All valid game positions.
+ */
+val ALL_POSITIONS: List<Cell> =
+    (0 until GRID_HEIGHT).map { line ->
+        (0 until GRID_WIDTH).map { col ->
+            Cell(line,col)
+        }
+    }.flatten()
+/*
+    List(GRID_WIDTH*GRID_HEIGHT) {
+        Cell( line = it/GRID_WIDTH, col = it%GRID_WIDTH)
+    }
+*/
+
+/**
  * It represents the 8 possible directions: vertical, horizontal and oblique.
  * @property lineDif Offset in the lines of this direction.
  * @property colDif Offset in the columns of this direction.

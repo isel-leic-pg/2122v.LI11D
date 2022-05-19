@@ -8,7 +8,16 @@ fun Canvas.drawArena(g: Game) {
     drawGrid()
     drawRobots(g.robots)
     drawHero(g.hero)
+    drawGarbage(g.garbage)
     //println(g.hero.stepAnim)
+}
+
+private fun Canvas.drawGarbage(garbage: List<Cell>) {
+    garbage.forEach{ g ->
+        val x = g.col * CELL_SIZE
+        val y = g.line * CELL_SIZE
+        drawImage("junk.png",x, y, CELL_SIZE, CELL_SIZE)
+    }
 }
 
 private fun Canvas.drawRobots(robots: List<Actor>) {

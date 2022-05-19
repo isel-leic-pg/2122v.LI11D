@@ -1,7 +1,9 @@
 /**
  * Total number of animation step between cells.
  */
-const val ANIM_STEPS = 8
+const val ANIM_STEPS = 16
+
+const val SPACE_CODE = 32
 
 /**
  * Represents an actor.
@@ -17,7 +19,7 @@ data class Actor(val pos: Cell, val dir: Direction, val stepAnim: Int = 0)
  * @return The actor after the movement.
  */
 fun Actor.moveByKey(keyCode: Int): Actor {
-    val dir:Direction = keyCode.toDir() ?: return this
+    val dir: Direction = keyCode.toDir() ?: return this
     return moveToDir(dir)
 }
 
@@ -47,9 +49,7 @@ fun Actor.moveToPos(to: Cell): Actor {
  * Creates [n] robots in random grid positions.
  */
 fun randomRobots(n: Int, except: Cell): List<Actor> {
-    val allCells = List(GRID_WIDTH*GRID_HEIGHT) {
-        Cell( line = it/GRID_WIDTH, col = it%GRID_WIDTH)
-    } - except
+    val allCells = ALL_POSITIONS - except
     return allCells.shuffled().take(n).map { Actor(it,Direction.DOWN) }
 }
 
