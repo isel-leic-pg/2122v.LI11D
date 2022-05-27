@@ -11,7 +11,7 @@ fun createGame(): Game {
     return Game(
         hero = Actor(heroPos, Direction.DOWN),
         robots = randomRobots(3, heroPos),
-        garbage = listOf( Cell(0,0) )
+        garbage = emptyList()
     )
 }
 
@@ -29,11 +29,22 @@ fun Game.moveHero(keyCode: Int): Game {
     return copy(hero, robots)
 }
 
+fun Game.isStopped() = hero.stepAnim==0 && robots.all{ it.stepAnim==0 }
+
+fun Game.detectCollisions(): Game {
+    val robotsPositions = robots.map { it.pos }.repetitions()
+    // ... TODO
+    return this
+}
+
 /**
  * Perform one more animation step.
  */
-fun Game.stepAnim(): Game =
-    copy( hero.stepAnim(), robots.map { it.stepAnim() } )
+fun Game.stepAnim(): Game {
+    if (isStopped()) return this
+    val g = copy(hero.stepAnim(), robots.map { it.stepAnim() })
+    return if (g.isStopped()) g.detectCollisions() else g
+}
 
 /**
  * Returns a random free position, that doesn't have robot or hero.
