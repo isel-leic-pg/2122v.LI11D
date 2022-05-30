@@ -9,7 +9,16 @@ fun Canvas.drawArena(g: Game) {
     drawRobots(g.robots)
     drawHero(g.hero)
     drawGarbage(g.garbage)
-    //println(g.hero.stepAnim)
+    drawStatus(g.isOver())
+}
+
+const val OVER_TEXT = "Game Over"
+const val TEXT_FONT = 64
+const val HALF_WIDTH_OF_TEXT = OVER_TEXT.length/2 * TEXT_FONT
+
+private fun Canvas.drawStatus(over: Boolean) {
+    if (over)
+        drawText(width/2-HALF_WIDTH_OF_TEXT,height/2,OVER_TEXT, RED, TEXT_FONT)
 }
 
 private fun Canvas.drawGarbage(garbage: List<Cell>) {

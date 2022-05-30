@@ -19,7 +19,7 @@ fun createGame(): Game {
  * Move the hero and robots towards him.
  */
 fun Game.moveHero(keyCode: Int): Game {
-    //println("key = $keyCode")
+    if (isOver()) return this
     val hero = if (keyCode==SPACE_CODE) {
         val pos = randomFreePosition(this)
         Actor(pos, Direction.DOWN)
@@ -29,22 +29,39 @@ fun Game.moveHero(keyCode: Int): Game {
     return copy(hero, robots)
 }
 
+/**
+ * Checks if the actors are all stopped.
+ */
 fun Game.isStopped() = hero.stepAnim==0 && robots.all{ it.stepAnim==0 }
 
+/**
+ * Detects collisions between robots and garbage and between robots.
+ */
 fun Game.detectCollisions(): Game {
-    val robotsPositions = robots.map { it.pos }.repetitions()
-    // ... TODO
-    return this
+    val robotsAfter = robots.filter { it.pos !in garbage }
+    val collisions = robotsAfter.map { it.pos }.repetitions()
+    val newGarbage = garbage + collisions
+    val newRobots = robots.filter { it.pos !in newGarbage }
+    return if (newRobots.size == robots.size) this
+           else copy(robots = newRobots, garbage = newGarbage)
 }
 
 /**
- * Perform one more animation step.
+ * Perform one more animation step if any actor is moving.
+ * Detect collisions at the end of each animation.
  */
 fun Game.stepAnim(): Game {
     if (isStopped()) return this
     val g = copy(hero.stepAnim(), robots.map { it.stepAnim() })
     return if (g.isStopped()) g.detectCollisions() else g
 }
+
+/**
+ * Detects if the game is over.
+ * There are no more robots or the hero is in the same position as a garbage or a robot
+ */
+fun Game.isOver() =
+    robots.isEmpty() || hero.pos in garbage || robots.any { it.pos == hero.pos }
 
 /**
  * Returns a random free position, that doesn't have robot or hero.
